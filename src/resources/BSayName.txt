@@ -1,0 +1,19 @@
+import React from 'react';
+
+
+class SayName extends React.Component {
+
+
+    render(){
+        console.log(this.props);
+        
+        return (
+            <div>
+                Hola {this.props.name}
+            </div>
+        )
+    }
+
+}
+
+export default SayName;

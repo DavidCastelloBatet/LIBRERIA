@@ -1,0 +1,141 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"
+    />
+    <link rel="stylesheet" href="./css/app.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            llibres: [],
+            loader: true,
+            search: ""
+          };
+        }
+        updateSearch(event) {
+          this.setState({ search: event.target.value.substr(0, 20) });
+        }
+
+        componentDidMount() {
+          var jason = "https://api.myjson.com/bins/1h3vb3";
+          fetch(jason)
+            .then(response => {
+              return response.json();
+            })
+            .then(data =>
+              this.setState({
+                llibres: data.books,
+                loader: false
+              })
+            )
+
+            .catch(error => {
+              console.log(error);
+            });
+        }
+
+        render() {
+          let filteredBooks = this.state.llibres.filter(llibr => {
+            return (
+              llibr.titulo
+                .toLowerCase()
+                .indexOf(this.state.search.toLowerCase()) !== -1 ||
+              llibr.descripcion
+                .toLowerCase()
+                .indexOf(this.state.search.toLowerCase()) !== -1
+            );
+          });
+          return (
+            <div>
+              <header className="header">
+                <div className="logo">
+                  <img src="./img/logo.png" alt="logo" width="150" />
+                </div>
+                <div>
+                  <h1>
+                    <span className="h1Inicial">L</span>libreria{" "}
+                    <span className="h1Inicial">U</span>BIQUM
+                  </h1>
+
+                  <h3>- Versió React amb CDN -</h3>
+                </div>
+              </header>
+              <section className="search">
+                <input
+                  type="search"
+                  value={this.state.search}
+                  onChange={this.updateSearch.bind(this)}
+                  className="searchBox"
+                  placeholder="Buscar..."
+                />
+              </section>
+
+              {this.state.loader ? <span class="spinner"></span> : null}
+
+              <div className="lista">
+                {filteredBooks.map((llibre, sinop) => {
+                  return (
+                    <div key={llibre.titulo}>
+                      <li>
+                        <div id="flipLlibre" className="flip-card">
+                          <div className="flip-card-inner">
+                            <div className="flip-card-front">
+                              <img
+                                src={llibre.portada}
+                                width="250"
+                                height="330"
+                              />
+                            </div>
+                            <div className="flip-card-back">
+                              <h2 className="title">{llibre.titulo}</h2>
+                              <p className="idioma">
+                                {llibre.idioma == "es"
+                                  ? "Idioma :  Español"
+                                  : "Language :  English"}
+                              </p>
+                              <p className="detalle">{llibre.descripcion}</p>
+                              <button className="cssMoreInfo">
+                                <a data-fancybox data-src={llibre.detalle}>
+                                  More Info...
+                                </a>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  </body>
+</html>

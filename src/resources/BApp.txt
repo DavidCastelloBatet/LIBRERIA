@@ -1,0 +1,48 @@
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import SayName from "./componets/SayName"
+import Search from "./componets/Search"
+class App extends React.Component  {
+  state = {
+    name: ""
+  }
+
+  setName = (event) =>{
+    console.log(event);
+    
+console.log("Cambio",event.target.value);
+    this.setState({
+      name : event.target.value
+    })
+  }
+
+
+ render(){
+   console.log(this.props);
+   
+
+
+  return (
+    <div className="App">
+      <header className="App-header">
+      <Search setName= {this.setName} />
+        <img src={logo} className="App-logo" alt="logo" />
+        <div>
+        <SayName name={this.state.name}/>
+        </div>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+ }
+}
+
+export default App;

@@ -1,0 +1,22 @@
+import React, { Component } from "react";
+
+
+class Search extends Component {
+
+    setName = (event) => {
+        console.log("TADAAA", event.target.value);
+
+this.props.setName(event)
+        
+    }
+
+    render(){
+        console.log("Linea 14",this.props);
+        
+        return (
+            <input type="text" onChange={this.setName} />
+        )
+    }
+}
+
+export default Search;
