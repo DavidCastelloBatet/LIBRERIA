@@ -14,7 +14,7 @@ class Header extends Component {
               <span className="h1Inicial">L</span>libreria{" "}
               <span className="h1Inicial">U</span>BIQUM
             </h1>
-            <h3>- Versió Framework React amb Search -</h3>
+            <h3>- Versión Framework React amb Search -</h3>
           </div>
         </header>
       </div>
