@@ -23,9 +23,9 @@ h1 {
   font-style: oblique;
   font-size: 45px;
 }
-/*h1:hover {
+h1:hover {
   transform: scale(1.2, 1.2);
-}*/
+}
 h3 {
   text-align: center;
 }
